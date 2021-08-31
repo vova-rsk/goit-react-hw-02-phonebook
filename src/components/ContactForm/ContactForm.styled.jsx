@@ -11,7 +11,7 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
 
-    &:not(:first-child) {
+    &:not(:first-of-type) {
       margin-top: 10px;
     }
   }
