@@ -5,7 +5,9 @@ import ContactItem from '../ContactItem';
 const ContactList = ({ contacts }) => {
   return (
     <ul>
-      <ContactItem contacts={contacts} />
+      {contacts.map(({ id, name, number }) => (
+        <ContactItem key={id} name={name} number={number} />
+      ))}
     </ul>
   );
 };
