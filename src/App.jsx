@@ -17,20 +17,41 @@ class App extends Component {
     number: '',
   };
 
-  filter = (key, arrayOfObjects) => {
-    return arrayOfObjects.filter(elem =>
-      elem.name.toLowerCase().includes(key.toLowerCase()),
+  contactsFiltering = (key, arrayOfObjects) => {
+    return arrayOfObjects.filter(({ name }) =>
+      name.toLowerCase().includes(key.toLowerCase()),
     );
   };
 
-  onSubmitButtonClick = e => {
+  availabilityСheck = inputName => {
+    const existingСontact = this.state.contacts.find(
+      ({ name }) => name.toLowerCase() === inputName.toLowerCase(),
+    );
+
+    if (existingСontact) {
+      alert(`${inputName} is already in contacts`);
+      return true;
+    }
+    return false;
+  };
+
+  handleSubmit = e => {
     e.preventDefault();
 
-    this.setState(({ contacts, name, number }) => {
-      if (!name || !number) {
-        return;
-      }
+    const {
+      state: { name, number },
+      availabilityСheck,
+    } = this;
 
+    if (!name || !number) {
+      return;
+    }
+
+    if (availabilityСheck(name)) {
+      return;
+    }
+
+    this.setState(({ contacts, name, number }) => {
       const contactToAdd = {
         id: uuidv4(),
         name,
@@ -46,30 +67,32 @@ class App extends Component {
     });
   };
 
-  onInputChange = e => {
+  handleChange = e => {
     const name = e.target.name;
     this.setState({ [name]: e.target.value.trim() });
   };
 
   render() {
-    const filteredContacts = this.filter(
-      this.state.filter,
-      this.state.contacts,
-    );
+    const {
+      state: { contacts, filter, name, number },
+      handleChange,
+      handleSubmit,
+      contactsFiltering,
+    } = this;
 
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm
-          name={this.state.name}
-          number={this.state.number}
-          onInputChange={this.onInputChange}
-          onSubmitButtonClick={this.onSubmitButtonClick}
+          name={name}
+          number={number}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
         />
 
         <h2>Contacts</h2>
-        <Filter onInputChange={this.onInputChange} />
-        <ContactList contacts={filteredContacts} />
+        <Filter handleChange={handleChange} />
+        <ContactList contacts={contactsFiltering(filter, contacts)} />
       </div>
     );
   }

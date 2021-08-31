@@ -2,16 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Label } from './Filter.styled';
 
-const Filter = ({ filter, onInputChange }) => {
+const Filter = ({ filter, handleChange }) => {
   return (
     <Label>
       Find contacts by name
-      <input
-        type="text"
-        name="filter"
-        onChange={onInputChange}
-        value={filter}
-      />
+      <input type="text" name="filter" onChange={handleChange} value={filter} />
     </Label>
   );
 };
@@ -26,5 +21,5 @@ Filter.propTypes = {
       number: PropTypes.string,
     }),
   ),
-  onInputChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
