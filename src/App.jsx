@@ -12,15 +12,23 @@ class App extends Component {
   };
 
   onSubmitButtonClick = e => {
-    this.setState(({ contacts, name }) => {
+    e.preventDefault();
+
+    this.setState(({ contacts, name, number }) => {
+      if (!name || !number) {
+        return;
+      }
+
       const contactToAdd = {
         id: uuidv4(),
         name,
+        number,
       };
 
       return {
         contacts: [...contacts, contactToAdd],
         name: '',
+        number: '',
       };
     });
   };
