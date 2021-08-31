@@ -3,6 +3,7 @@ import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList/ContactList';
 import { v4 as uuidv4 } from 'uuid';
+import { Container } from './App.styled';
 
 class App extends Component {
   state = {
@@ -17,12 +18,14 @@ class App extends Component {
     number: '',
   };
 
-  contactsFiltering = (key, arrayOfObjects) => {
-    return arrayOfObjects.filter(({ name }) =>
+  /*метод для фильтрации контактов*/
+  contactsFiltering = key => {
+    return this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(key.toLowerCase()),
     );
   };
 
+  /*метод для проверки присутствия контакта с указанным именем*/
   availabilityСheck = inputName => {
     const existingСontact = this.state.contacts.find(
       ({ name }) => name.toLowerCase() === inputName.toLowerCase(),
@@ -35,6 +38,7 @@ class App extends Component {
     return false;
   };
 
+  /*метод для обработки сабмита формы*/
   handleSubmit = e => {
     e.preventDefault();
 
@@ -52,14 +56,14 @@ class App extends Component {
     }
 
     this.setState(({ contacts, name, number }) => {
-      const contactToAdd = {
+      const newContact = {
         id: uuidv4(),
         name,
         number,
       };
 
       return {
-        contacts: [...contacts, contactToAdd],
+        contacts: [...contacts, newContact],
         filter: '',
         name: '',
         number: '',
@@ -67,21 +71,23 @@ class App extends Component {
     });
   };
 
+  /*метод для обработки введения данных в input*/
   handleChange = e => {
     const name = e.target.name;
     this.setState({ [name]: e.target.value.trim() });
   };
 
+  /*метод для формирования разметки*/
   render() {
     const {
-      state: { contacts, filter, name, number },
+      state: { filter, name, number },
       handleChange,
       handleSubmit,
       contactsFiltering,
     } = this;
 
     return (
-      <div>
+      <Container>
         <h1>Phonebook</h1>
         <ContactForm
           name={name}
@@ -92,8 +98,8 @@ class App extends Component {
 
         <h2>Contacts</h2>
         <Filter filter={filter} handleChange={handleChange} />
-        <ContactList contacts={contactsFiltering(filter, contacts)} />
-      </div>
+        <ContactList contacts={contactsFiltering(filter)} />
+      </Container>
     );
   }
 }
