@@ -14,12 +14,6 @@ const Filter = ({ filter, handleChange }) => {
 export default Filter;
 
 Filter.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    }),
-  ),
+  filter: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
 };

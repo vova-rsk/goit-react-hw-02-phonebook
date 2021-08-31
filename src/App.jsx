@@ -91,7 +91,7 @@ class App extends Component {
         />
 
         <h2>Contacts</h2>
-        <Filter handleChange={handleChange} />
+        <Filter filter={filter} handleChange={handleChange} />
         <ContactList contacts={contactsFiltering(filter, contacts)} />
       </div>
     );

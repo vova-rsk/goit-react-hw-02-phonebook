@@ -4,7 +4,7 @@ import { Form } from './ContactForm.styled';
 
 const ContactForm = ({ name, number, handleChange, handleSubmit }) => {
   return (
-    <Form action="submit" onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <label>
         Name
         <input
