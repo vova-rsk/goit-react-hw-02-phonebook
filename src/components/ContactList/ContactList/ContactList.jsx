@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContactItem from '../ContactItem';
 
-const ContactList = props => {
+const ContactList = ({ contacts }) => {
   return (
     <ul>
-      <ContactItem />
+      <ContactItem contacts={contacts} />
     </ul>
   );
 };
