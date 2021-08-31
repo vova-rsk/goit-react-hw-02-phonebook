@@ -12,4 +12,12 @@ const ContactList = ({ contacts }) => {
 
 export default ContactList;
 
-ContactList.propTypes = {};
+ContactList.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    }),
+  ),
+};
