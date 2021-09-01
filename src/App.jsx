@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList/ContactList';
-import { v4 as uuidv4 } from 'uuid';
 import { Container } from './App.styled';
 
 class App extends Component {
@@ -14,8 +13,6 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
   };
 
   /*метод для фильтрации контактов*/
@@ -23,6 +20,14 @@ class App extends Component {
     return this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(key.toLowerCase()),
     );
+  };
+
+  /*метод для добавления елемента в контакты*/
+  contactAdding = newContact => {
+    this.setState(({ contacts, filter }) => ({
+      contacts: [...contacts, newContact],
+      filter,
+    }));
   };
 
   /*метод для проверки присутствия контакта с указанным именем*/
@@ -38,66 +43,33 @@ class App extends Component {
     return false;
   };
 
-  /*метод для обработки сабмита формы*/
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const {
-      state: { name, number },
-      availabilityСheck,
-    } = this;
-
-    if (!name || !number) {
-      return;
-    }
-
-    if (availabilityСheck(name)) {
-      return;
-    }
-
-    this.setState(({ contacts, name, number }) => {
-      const newContact = {
-        id: uuidv4(),
-        name,
-        number,
-      };
-
-      return {
-        contacts: [...contacts, newContact],
-        filter: '',
-        name: '',
-        number: '',
-      };
-    });
-  };
-
   /*метод для обработки введения данных в input*/
-  handleChange = e => {
+  handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value.trim() });
-  };
+  }
 
   /*метод для формирования разметки*/
   render() {
     const {
-      state: { filter, name, number },
+      state: { filter },
       handleChange,
-      handleSubmit,
+      availabilityСheck,
       contactsFiltering,
+      contactAdding,
     } = this;
 
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm
-          name={name}
-          number={number}
           handleChange={handleChange}
-          handleSubmit={handleSubmit}
+          availabilityСheck={availabilityСheck}
+          contactAdding={contactAdding}
         />
 
         <h2>Contacts</h2>
-        <Filter filter={filter} handleChange={handleChange} />
+        <Filter filter={filter} handleChange={handleChange.bind(this)} />
         <ContactList contacts={contactsFiltering(filter)} />
       </Container>
     );
