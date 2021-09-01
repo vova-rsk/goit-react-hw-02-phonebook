@@ -15,4 +15,4 @@ const Label = styled.label`
   }
 `;
 
-export { Label };
+export default Label;
