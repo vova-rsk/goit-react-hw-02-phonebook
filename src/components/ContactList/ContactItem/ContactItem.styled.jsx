@@ -1,12 +1,29 @@
 import styled from '@emotion/styled';
 
 const ListItem = styled.li`
+  position: relative;
   display: flex;
   flex-direction: row;
+  padding-left: 20px;
 
   &:not(:last-of-type) {
     margin-bottom: 12px;
   }
+
+  ::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 4px;
+    height: 4px;
+    background-color: #000;
+    border: 1px solid #000;
+    border-radius: 50%;
+  }
+
   span {
     display: inline-block;
   }
@@ -32,4 +49,4 @@ const ListItem = styled.li`
   }
 `;
 
-export { ListItem };
+export default ListItem;
