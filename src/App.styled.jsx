@@ -4,4 +4,4 @@ const Container = styled.div`
   padding: 60px;
 `;
 
-export { Container };
+export default Container;

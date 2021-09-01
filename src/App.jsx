@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList/ContactList';
-import { Container } from './App.styled';
+import Container from './App.styled';
 
 class App extends Component {
   state = {
