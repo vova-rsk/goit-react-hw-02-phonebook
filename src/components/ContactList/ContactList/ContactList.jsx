@@ -2,11 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContactItem from '../ContactItem';
 
-const ContactList = ({ contacts }) => {
+const ContactList = ({ contacts, contactRemoving }) => {
   return (
     <ul>
       {contacts.map(({ id, name, number }) => (
-        <ContactItem key={id} name={name} number={number} />
+        <ContactItem
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          contactRemoving={contactRemoving}
+        />
       ))}
     </ul>
   );
@@ -22,4 +28,5 @@ ContactList.propTypes = {
       number: PropTypes.string,
     }),
   ),
+  contactRemoving: PropTypes.func.isRequired,
 };

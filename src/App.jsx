@@ -30,6 +30,16 @@ class App extends Component {
     }));
   };
 
+  /*метод для удаления елемента в контактах*/
+  contactRemoving = id => {
+    this.setState(({ contacts, filter }) => {
+      return {
+        contacts: contacts.filter(elem => elem.id !== id),
+        filter,
+      };
+    });
+  };
+
   /*метод для проверки присутствия контакта с указанным именем*/
   availabilityСheck = inputName => {
     const existingСontact = this.state.contacts.find(
@@ -57,6 +67,7 @@ class App extends Component {
       availabilityСheck,
       contactsFiltering,
       contactAdding,
+      contactRemoving,
     } = this;
 
     return (
@@ -70,7 +81,10 @@ class App extends Component {
 
         <h2>Contacts</h2>
         <Filter filter={filter} handleChange={handleChange.bind(this)} />
-        <ContactList contacts={contactsFiltering(filter)} />
+        <ContactList
+          contacts={contactsFiltering(filter)}
+          contactRemoving={contactRemoving}
+        />
       </Container>
     );
   }
