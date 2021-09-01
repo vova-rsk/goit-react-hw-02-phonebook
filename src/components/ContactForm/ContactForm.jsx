@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import Form from './ContactForm.styled';
 
-class ContactForm extends Component {
+export default class ContactForm extends Component {
   state = {
     name: '',
     number: '',
@@ -65,8 +65,6 @@ class ContactForm extends Component {
     );
   }
 }
-
-export default ContactForm;
 
 ContactForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
