@@ -15,14 +15,14 @@ class App extends Component {
     filter: '',
   };
 
-  /*метод для фильтрации контактов*/
+  /*method for filtering contacts*/
   contactsFiltering = key => {
     return this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(key.toLowerCase()),
     );
   };
 
-  /*метод для добавления елемента в контакты*/
+  /*method for adding an item to contacts*/
   contactAdding = newContact => {
     this.setState(({ contacts, filter }) => ({
       contacts: [...contacts, newContact],
@@ -30,7 +30,7 @@ class App extends Component {
     }));
   };
 
-  /*метод для удаления елемента в контактах*/
+  /*method for removing an item from contacts*/
   contactRemoving = id => {
     this.setState(({ contacts, filter }) => {
       return {
@@ -40,7 +40,7 @@ class App extends Component {
     });
   };
 
-  /*метод для проверки присутствия контакта с указанным именем*/
+  /*method for checking the presence of a contact with the specified name*/
   availabilityСheck = inputName => {
     const existingСontact = this.state.contacts.find(
       ({ name }) => name.toLowerCase() === inputName.toLowerCase(),
@@ -53,37 +53,30 @@ class App extends Component {
     return false;
   };
 
-  /*метод для обработки введения данных в input*/
+  /*method for handling data input to input-elem*/
   handleChange(e) {
     const name = e.target.name;
     this.setState({ [name]: e.target.value.trim() });
   }
 
-  /*метод для формирования разметки*/
+  /*method for generating markup*/
   render() {
-    const {
-      state: { filter },
-      handleChange,
-      availabilityСheck,
-      contactsFiltering,
-      contactAdding,
-      contactRemoving,
-    } = this;
+    const { filter } = this.state;
 
     return (
       <Container>
         <h1>Phonebook</h1>
         <ContactForm
-          handleChange={handleChange}
-          availabilityСheck={availabilityСheck}
-          contactAdding={contactAdding}
+          handleChange={this.handleChange}
+          availabilityСheck={this.availabilityСheck}
+          contactAdding={this.contactAdding}
         />
 
         <h2>Contacts</h2>
-        <Filter filter={filter} handleChange={handleChange.bind(this)} />
+        <Filter filter={filter} handleChange={this.handleChange.bind(this)} />
         <ContactList
-          contacts={contactsFiltering(filter)}
-          contactRemoving={contactRemoving}
+          contacts={this.contactsFiltering(filter)}
+          contactRemoving={this.contactRemoving}
         />
       </Container>
     );
